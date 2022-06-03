@@ -10,6 +10,15 @@ const DB_CONFIG = {
   port: 3306,
 };
 
+// const DB_NAME = "fidelityapp";
+// const DB_USER = "root";
+// const DB_PASS = "32259710";
+// const DB_CONFIG = {
+//   dialect: "mysql",
+//   host: "127.0.0.1",
+//   port: 3306,
+// };
+
 const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASS, DB_CONFIG);
 
 async function hasConection() {

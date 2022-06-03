@@ -1,7 +1,7 @@
 import bcryptjs from "bcryptjs";
 import { Request, Response } from "express";
 
-import { Restaurants } from "../models";
+import { Fidelity, Restaurants } from "../models";
 
 const restaurantController = {
   restaurantSignUp: async (req: Request, res: Response) => {
@@ -30,8 +30,13 @@ const restaurantController = {
     return res.status(201).json({ message: "User created" });
   },
   listAll: async (req: Request, res: Response): Promise<void> => {
-    console.log(req.user);
-    const allRestaurants = await Restaurants.findAll();
+    const allRestaurants = await Restaurants.findAll({
+      include: [
+        {
+          model: Fidelity,
+        },
+      ],
+    });
 
     res.json(allRestaurants);
   },

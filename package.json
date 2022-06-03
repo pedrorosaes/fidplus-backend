@@ -1,10 +1,11 @@
 {
   "name": "gamabackend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.ts",
   "author": "Pedro Rosaes <pedro_rosaes@hotmail.com>",
   "license": "MIT",
   "scripts": {
+    "start": "node server.ts",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/server.ts -p 3333"
   },
   "dependencies": {
