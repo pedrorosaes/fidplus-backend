@@ -1,11 +1,12 @@
 import { Sequelize } from "sequelize";
+import "dotenv/config";
 
-const DB_NAME = "fidelityapp";
-const DB_USER = "root";
-const DB_PASS = "32259710";
+const DB_NAME = process.env.MYSQL_DB_NAME;
+const DB_USER = process.env.MYSQL_DB_USER;
+const DB_PASS = process.env.MYSQL_DB_PASS;
 const DB_CONFIG = {
   dialect: "mysql",
-  host: "localhost",
+  host: process.env.MYSQL_DB_HOST,
   port: 3306,
 };
 
