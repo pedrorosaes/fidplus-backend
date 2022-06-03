@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { UnauthorizedError } from "express-jwt";
 import { ValidationError } from "express-validation";
 
-const handleError = (error, req: Request, res: Response) => {
+const handleError = (error: any, req: Request, res: Response) => {
   if (error instanceof ValidationError) {
     return res.status(error.statusCode).json(error);
   }

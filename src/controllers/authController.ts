@@ -62,7 +62,7 @@ const authController = {
 
     return res.json({ token, client });
   },
-  tokenLogin: async (req: ExpressJwtRequest, res: Response) => {
+  tokenLogin: async (req: ExpressJwtRequest<JwtPayload>, res: Response) => {
     const { id, name, email, avatar, type } = req.auth;
     let client;
     if (type === 0) {
