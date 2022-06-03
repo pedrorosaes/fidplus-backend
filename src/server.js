@@ -1,5 +1,6 @@
 import express from "express";
 
+import { config } from "./configs/config";
 import { hasConection } from "./database";
 import { handleError } from "./middlewares/handleError";
 import { routes } from "./routes";
@@ -14,4 +15,4 @@ app.use(routes);
 
 app.use(handleError);
 
-app.listen(process.env.PORT, () => console.log("Server running"));
+app.listen(config.server.port, () => console.log("Server running"));
