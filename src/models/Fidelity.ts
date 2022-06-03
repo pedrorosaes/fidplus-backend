@@ -1,15 +1,14 @@
 import { DataTypes } from "sequelize";
 
 import { sequelize } from "../database";
-import { Restaurants } from "./index";
 
 const Fidelity = sequelize.define(
   "Fidelity",
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      autoIncrement: true,
     },
     price: {
       type: DataTypes.FLOAT,
@@ -27,9 +26,13 @@ const Fidelity = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    reward_points: {
+    steps: {
       type: DataTypes.INTEGER,
-      defaultValue: 1,
+      defaultValue: 6,
+    },
+    active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -37,12 +40,9 @@ const Fidelity = sequelize.define(
     updatedAt: {
       type: DataTypes.DATE,
     },
-    Restaurants_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: Restaurants,
-        key: "id",
-      },
+    restaurant_id: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   {

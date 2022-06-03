@@ -7,6 +7,14 @@ const clientController = {
   clientSignIn: async (req: Request, res: Response) => {
     const { name, email, password } = req.body;
 
+    const alreadyExists = await Clients.findOne({
+      where: {
+        email,
+      },
+    });
+    if (alreadyExists) {
+      return res.status(409).json({ message: "Email already exist" });
+    }
     const passwordEncrypt = bcryptjs.hashSync(password, 10);
 
     try {
@@ -15,10 +23,10 @@ const clientController = {
         email,
         password: passwordEncrypt,
       });
-      res.status(201).send();
     } catch (err) {
       console.error(err);
     }
+    return res.status(201).json({ message: "User created" });
   },
   deleteClient: async (req: Request, res: Response) => {
     const { id } = req.params;

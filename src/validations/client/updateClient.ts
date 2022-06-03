@@ -2,7 +2,7 @@ import { validate, Joi } from "express-validation";
 
 const updateClientById = validate({
   params: Joi.object({
-    id: Joi.number().required(),
+    id: Joi.string().required(),
   }),
   body: Joi.object({
     name: Joi.string(),

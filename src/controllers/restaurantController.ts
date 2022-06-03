@@ -1,25 +1,36 @@
+import bcryptjs from "bcryptjs";
 import { Request, Response } from "express";
 
 import { Restaurants } from "../models";
 
 const restaurantController = {
-  restaurantSignIn: async (req: Request, res: Response): Promise<void> => {
-    const { name, email, cnpj, password } = req.body;
+  restaurantSignUp: async (req: Request, res: Response) => {
+    const { name, email, password } = req.body;
+
+    const alreadyExists = await Restaurants.findOne({
+      where: {
+        email,
+      },
+    });
+    if (alreadyExists) {
+      return res.status(409).json({ message: "Email already exist" });
+    }
+    const passwordEncrypt = bcryptjs.hashSync(password, 10);
 
     try {
       await Restaurants.create({
         name,
         email,
-        cnpj,
-        password,
+        password: passwordEncrypt,
       });
     } catch (err) {
       console.log(err);
     }
 
-    res.send();
+    return res.status(201).json({ message: "User created" });
   },
   listAll: async (req: Request, res: Response): Promise<void> => {
+    console.log(req.user);
     const allRestaurants = await Restaurants.findAll();
 
     res.json(allRestaurants);
@@ -39,13 +50,12 @@ const restaurantController = {
   },
   restaurantUpdate: async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { name, email, cnpj, password } = req.body;
+    const { name, email, password } = req.body;
     try {
       await Restaurants.update(
         {
           name,
           email,
-          cnpj,
           password,
         },
         {

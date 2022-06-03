@@ -5,15 +5,17 @@
   "author": "Pedro Rosaes <pedro_rosaes@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/server.ts"
+    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/server.ts -p 3333"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "express": "^4.18.1",
+    "express-jwt": "^7.7.5",
     "express-validation": "^4.1.0",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
-    "sequelize": "^6.20.1"
+    "sequelize": "^6.20.1",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

@@ -1,26 +1,17 @@
 import { Request, Response } from "express";
 
-import { Fidelitys } from "../models";
+import { Fidelity } from "../models";
 
 const fidelityController = {
   createFidelity: async (req: Request, res: Response) => {
-    const {
-      price,
-      image_url,
-      description,
-      title,
-      reward_points,
-      Restaurants_id,
-    } = req.body;
+    const { price, description, title, restaurant_id } = req.body;
 
     try {
-      await Fidelitys.create({
+      await Fidelity.create({
         price,
-        image_url,
         description,
         title,
-        reward_points,
-        Restaurants_id,
+        restaurant_id,
       });
     } catch (err) {
       console.error(err);
@@ -29,12 +20,27 @@ const fidelityController = {
   },
   listAllFidelitysByRestaurant: async (req: Request, res: Response) => {
     const { id } = req.params;
-    const listaDeProdutos = await Fidelitys.findAll({
+    console.log(id);
+    const listaDeProdutos = await Fidelity.findAll({
       where: {
-        Restaurants_id: id,
+        restaurant_id: id,
       },
     });
-    res.json(listaDeProdutos);
+    res.status(201).json(listaDeProdutos);
+  },
+  deleteFidelity: async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    try {
+      await Fidelity.destroy({
+        where: {
+          id,
+        },
+      });
+      res.status(201).json({ message: "Fidelity deleted" });
+    } catch (err) {
+      res.status(400).json(err);
+    }
   },
 };
 

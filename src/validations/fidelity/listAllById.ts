@@ -1,9 +1,9 @@
 import { validate, Joi } from "express-validation";
 
-const deleteById = validate({
+const listAllByIdValidation = validate({
   params: Joi.object({
     id: Joi.string().required(),
   }),
 });
 
-export { deleteById };
+export { listAllByIdValidation };
